@@ -7,6 +7,7 @@ class CreatePromotions < ActiveRecord::Migration[5.1]
       t.string :user_message
       t.string :internal_message
       t.string :code
+      t.boolean :assigned, default: false
 
       t.timestamps
     end
