@@ -14,9 +14,16 @@ class Promotion < ApplicationRecord
     assigned
   end
 
-  def user_can_use_promotion? user
+  def user_can_use_promotion?(user)
     return true unless assigned?
-    users.include? user
+    return false unless users.include?(user)
+    return false if promotion_redeemed?(user)
+    true
+  end
+
+  def promotion_redeemed?(user)
+    return false if promotion_users.find_by(user: user).redeemed_at.nil?
+    true
   end
 
   private

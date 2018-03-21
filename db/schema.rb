@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20180321032050) do
   create_table "promotion_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "promotion_id"
+    t.datetime "redeemed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
