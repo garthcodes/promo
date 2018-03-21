@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180321032050) do
     t.string "user_message"
     t.string "internal_message"
     t.string "code"
-    t.boolean "exclusive", default: false
+    t.boolean "assigned", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
