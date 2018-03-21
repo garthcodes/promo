@@ -1,16 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Promotion, type: :model do
-  describe 'presence validations' do
+  describe 'start date and end date present' do
     it { is_expected.to validate_presence_of(:start_date) }
     it { is_expected.to validate_presence_of(:end_date) }
+  end
+
+  describe 'discount' do
     it { is_expected.to validate_presence_of(:discount) }
-    it { is_expected.to validate_presence_of(:user_message) }
+    it { is_expected.to validate_inclusion_of(:discount).in_array((1000..3000).to_a) }
   end
 
   describe 'internal message' do
     it { is_expected.to validate_presence_of(:internal_message) }
     it { is_expected.to validate_uniqueness_of(:internal_message) }
+    it { is_expected.to validate_length_of(:internal_message).is_at_least(20) }
+    it { is_expected.to validate_length_of(:internal_message).is_at_most(100) }
+  end
+
+  describe 'user message' do
+    it { is_expected.to validate_presence_of(:user_message) }
+    it { is_expected.to validate_length_of(:user_message).is_at_least(20) }
+    it { is_expected.to validate_length_of(:user_message).is_at_most(100) }
   end
 
   describe 'code' do
