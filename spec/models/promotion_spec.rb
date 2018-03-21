@@ -22,4 +22,25 @@ RSpec.describe Promotion, type: :model do
     it { is_expected.to have_many(:users) }
     it { is_expected.to have_many(:promotion_users) }
   end
+
+  describe 'user_can_use_promotion?' do
+    it 'assigned is false' do
+      user = create(:user)
+      promo = create(:promotion)
+      expect(promo.user_can_use_promotion?(user)).to eq true
+    end
+
+    it 'assigned is true promo not for user' do
+      user = create(:user)
+      promo = create(:assigned_promotion)
+      expect(promo.user_can_use_promotion?(user)).to eq false
+    end
+
+    it 'assigned is true promo for user' do
+      user = create(:user)
+      promo = create(:assigned_promotion)
+      promo.users << user
+      expect(promo.user_can_use_promotion?(user)).to eq true
+    end
+  end
 end
