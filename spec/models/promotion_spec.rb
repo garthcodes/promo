@@ -17,4 +17,9 @@ RSpec.describe Promotion, type: :model do
     it { is_expected.to validate_presence_of(:code) }
     it { is_expected.to validate_uniqueness_of(:code) }
   end
+
+  describe 'user' do
+    it { is_expected.to have_many(:users) }
+    it { is_expected.to have_many(:promotion_users) }
+  end
 end
