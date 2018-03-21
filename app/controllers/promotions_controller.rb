@@ -6,11 +6,10 @@ class PromotionsController < ApplicationController
 
   def create
     @promotion = Promotion.new(promotion_params)
-    @promotion.assigned = true if promotion_params[:user_ids].present?
     if @promotion.save
       redirect_to promotions_path(@promotion), notice: 'Promotion was successfully created.'
     else
-      render :new
+      render_with_turbolinks :new
     end
   end
 

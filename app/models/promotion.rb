@@ -6,13 +6,22 @@ class Promotion < ApplicationRecord
   validates :code, presence: true, uniqueness: true
   validates :internal_message, presence: true, uniqueness: true
 
+  after_create :set_assigned_flag_if_users
+
   def assigned?
-    return true if assigned == true
-    false
+    assigned
   end
 
   def user_can_use_promotion? user
     return true unless assigned?
     users.include? user
+  end
+
+  private
+  
+  def set_assigned_flag_if_users
+    return if users.blank?
+    self.assigned = true
+    self.save
   end
 end

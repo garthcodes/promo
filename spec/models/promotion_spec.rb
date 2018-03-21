@@ -43,4 +43,18 @@ RSpec.describe Promotion, type: :model do
       expect(promo.user_can_use_promotion?(user)).to eq true
     end
   end
+
+  describe 'assigned?' do
+    it 'assigned is default' do
+      promo = create(:promotion)
+      expect(promo.assigned?).to eq false
+    end
+
+    it 'assigned is true and promo has a user' do
+      user = create(:user)
+      promo = create(:assigned_promotion)
+      promo.users << user
+      expect(promo.assigned?).to eq true
+    end
+  end
 end

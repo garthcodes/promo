@@ -1,8 +1,11 @@
 <h4>New Promotion</h4>
+
+<%= render "shared/error_messages", target: @promotion %>
+
 <%= form_with model: @promotion do |f| %>
   <%= f.label 'Start Date' %>
-  <%= f.date_field :start_date %><br>
-  <%= f.label 'End date' %>
+  <%= f.date_field :start_date%><br>
+  <%= f.label :end_date %>
   <%= f.date_field :end_date %><br>
   <%= f.label 'Discount in cents' %>
   <%= f.text_field :discount, placeholder: '2000 = $20' %><br>
