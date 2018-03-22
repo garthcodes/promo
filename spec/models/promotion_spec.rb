@@ -42,9 +42,14 @@ RSpec.describe Promotion, type: :model do
     let(:user) { create(:user) }
     let(:promo) { create(:promotion) }
     let(:assigned_promo) { create(:assigned_promotion) }
+    let(:expired_promo) { create(:expired_promotion) }
 
     it 'assigned is false' do
       expect(promo.user_can_use_promotion?(user)).to eq true
+    end
+
+    it 'is an expired promotion' do
+      expect(assigned_promo.user_can_use_promotion?(user)).to eq false
     end
 
     it 'assigned is true promo not for user' do
@@ -108,6 +113,24 @@ RSpec.describe Promotion, type: :model do
     it "when a user is not assigned to a promo" do
       promo.save!
       expect(promo.assigned).to eq false
+    end
+  end
+
+  describe 'between_start_and_end_date?' do
+    let(:promo) { create(:promotion) }
+    let(:expired_promo) { create(:expired_promotion) }
+    let(:not_started_promotion) { create(:not_started_promotion) }
+
+    it 'promo is in between dates' do
+      expect(promo.between_start_and_end_date?).to eq true
+    end
+
+    it 'assigned is true and promo has a user' do
+      expect(expired_promo.between_start_and_end_date?).to eq false
+    end
+
+    it 'assigned is true and promo has a user' do
+      expect(not_started_promotion.between_start_and_end_date?).to eq false
     end
   end
 end

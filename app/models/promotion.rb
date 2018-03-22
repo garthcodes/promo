@@ -14,7 +14,12 @@ class Promotion < ApplicationRecord
     assigned
   end
 
+  def between_start_and_end_date?
+    Date.today.between?(start_date, end_date)
+  end
+
   def user_can_use_promotion?(user)
+    return false unless between_start_and_end_date?
     return true unless assigned?
     return false unless users.include?(user)
     return false if promotion_redeemed?(user)

@@ -14,4 +14,14 @@ FactoryBot.define do
       promo.users << create(:user)
     end
   end
+
+  factory :expired_promotion, parent: :promotion do
+    start_date 10.days.ago
+    end_date 2.days.ago
+  end
+
+  factory :not_started_promotion, parent: :promotion do
+    start_date 10.days.from_now
+    end_date 14.days.from_now
+  end
 end
