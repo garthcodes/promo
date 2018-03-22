@@ -99,21 +99,15 @@ RSpec.describe Promotion, type: :model do
     let(:user) { create(:user) }
     let(:promo) { build(:promotion) }
 
-    context "when a user is assigned to a promo" do
-      before {
-        promo.users << user
-        promo.save!
-      }
-
-      it {expect(promo.assigned).to eq true }
+    it "when a user is assigned to a promo" do
+      promo.users << user
+      promo.save!
+      expect(promo.assigned).to eq true
     end
 
-    context "when a user is not assigned to a promo" do
-      before {
-        promo.save!
-      }
-
-      it {expect(promo.assigned).to eq false }
+    it "when a user is not assigned to a promo" do
+      promo.save!
+      expect(promo.assigned).to eq false
     end
   end
 end
